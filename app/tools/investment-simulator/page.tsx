@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useMemo, useEffect, useCallback, useState } from "react";
+import { Fragment, useMemo, useEffect, useCallback, useState, useRef } from "react";
 import {
   ComposedChart,
   BarChart,
@@ -157,7 +157,7 @@ function InvestmentEventsCard({
   const [isAdding, setIsAdding] = useState(false);
   const [newEvent, setNewEvent] = useState({
     name: "",
-    age: currentAge + 5,
+    age: String(currentAge + 5),
     amount: "",
     type: "income" as "expense" | "income",
   });
@@ -168,16 +168,18 @@ function InvestmentEventsCard({
     if (!newEvent.name.trim() || !newEvent.amount) return;
     const amount = parseFloat(newEvent.amount.replace(/,/g, ""));
     if (isNaN(amount) || amount <= 0) return;
+    const age = parseInt(newEvent.age);
+    if (isNaN(age) || age < currentAge || age > maxAge) return;
 
     onAdd({
       id: crypto.randomUUID(),
       name: newEvent.name.trim(),
-      age: newEvent.age,
+      age,
       amount,
       type: newEvent.type,
     });
 
-    setNewEvent({ name: "", age: currentAge + 5, amount: "", type: "income" });
+    setNewEvent({ name: "", age: String(currentAge + 5), amount: "", type: "income" });
     setIsAdding(false);
   };
 
@@ -257,16 +259,16 @@ function InvestmentEventsCard({
                     At Age
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
                     value={newEvent.age}
-                    onChange={(e) =>
-                      setNewEvent((prev) => ({
-                        ...prev,
-                        age: parseInt(e.target.value) || currentAge,
-                      }))
-                    }
-                    min={currentAge}
-                    max={maxAge}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "" || /^\d*$/.test(val)) {
+                        setNewEvent((prev) => ({ ...prev, age: val }));
+                      }
+                    }}
                     className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
@@ -448,8 +450,14 @@ export default function InvestmentSimulatorPage() {
   const currencySymbol = currency === "INR" ? "₹" : "$";
   const currencyLocale = currency === "INR" ? "en-IN" : "en-CA";
 
-  /* Sync form on hydration / reset */
+  /* Sync form on hydration / reset (skip when change originated from user input) */
+  const skipSyncRef = useRef(false);
+
   useEffect(() => {
+    if (skipSyncRef.current) {
+      skipSyncRef.current = false;
+      return;
+    }
     setFormValues(toFormValues(savedInputs));
   }, [savedInputs]);
 
@@ -460,6 +468,7 @@ export default function InvestmentSimulatorPage() {
 
   const handleFieldChange = useCallback(
     (field: keyof PageInputs, value: string) => {
+      skipSyncRef.current = true;
       setFormValues((prev) => {
         const next = { ...prev, [field]: value };
         setSavedInputs(toNumericInputs(next));
@@ -732,14 +741,16 @@ export default function InvestmentSimulatorPage() {
                       Contribute
                     </span>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
                       value={formValues.contributionYears}
-                      onChange={(e) =>
-                        handleFieldChange("contributionYears", e.target.value)
-                      }
-                      min={1}
-                      max={100}
-                      step={1}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "" || /^\d*$/.test(val)) {
+                          handleFieldChange("contributionYears", val);
+                        }
+                      }}
                       className="w-full pl-[78px] pr-8 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                     />
                     <span className="absolute right-3 text-[13px] text-t3 pointer-events-none">
@@ -751,14 +762,16 @@ export default function InvestmentSimulatorPage() {
                       Then grow
                     </span>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="off"
                       value={formValues.growthOnlyYears}
-                      onChange={(e) =>
-                        handleFieldChange("growthOnlyYears", e.target.value)
-                      }
-                      min={0}
-                      max={100}
-                      step={1}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "" || /^\d*$/.test(val)) {
+                          handleFieldChange("growthOnlyYears", val);
+                        }
+                      }}
                       className="w-full pl-[78px] pr-8 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                     />
                     <span className="absolute right-3 text-[13px] text-t3 pointer-events-none">
@@ -810,6 +823,15 @@ export default function InvestmentSimulatorPage() {
           {/* ─── Summary Stats ─────────────────────── */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
             <StatDisplay
+              label={`Value · Age ${contributionEndAge}`}
+              value={fmtCompact(display.contributionPeriodEndValue)}
+              subLabel={
+                inputs.growthOnlyYears > 0
+                  ? "When contributions stop"
+                  : undefined
+              }
+            />
+            <StatDisplay
               label={`Final Value · Age ${finalAge}`}
               value={fmtCompact(display.finalValue)}
               subLabel={
@@ -846,15 +868,6 @@ export default function InvestmentSimulatorPage() {
               label="Growth Multiple"
               value={`${display.growthMultiple.toFixed(1)}x`}
               subLabel={`on ${fmtCompact(display.totalContributed)} invested`}
-            />
-            <StatDisplay
-              label={`Value · Age ${contributionEndAge}`}
-              value={fmtCompact(display.contributionPeriodEndValue)}
-              subLabel={
-                inputs.growthOnlyYears > 0
-                  ? "When contributions stop"
-                  : undefined
-              }
             />
           </div>
 

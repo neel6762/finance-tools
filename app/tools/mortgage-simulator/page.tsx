@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useCallback, useState } from "react";
+import { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import {
   ComposedChart,
   BarChart,
@@ -66,13 +66,52 @@ function toNumber(value: string, fallback: number): number {
   return isNaN(n) ? fallback : n;
 }
 
+type FormValues = {
+  downPaymentPercent: string;
+  interestRate: string;
+};
+
+function toFormValuesFromInputs(inputs: PageInputs): FormValues {
+  return {
+    downPaymentPercent: String(inputs.downPaymentPercent),
+    interestRate: String(inputs.interestRate),
+  };
+}
+
 export default function MortgageSimulatorPage() {
   const [inputs, setInputs] = useLocalStorage<PageInputs>(
     "helm:mortgage-simulator:v2",
     DEFAULTS
   );
 
+  const [formValues, setFormValues] = useState<FormValues>(() =>
+    toFormValuesFromInputs(DEFAULTS)
+  );
+
   const [summarized, setSummarized] = useState(true);
+
+  /* Sync form on hydration / reset (skip when change originated from user input) */
+  const skipSyncRef = useRef(false);
+
+  useEffect(() => {
+    if (skipSyncRef.current) {
+      skipSyncRef.current = false;
+      return;
+    }
+    setFormValues(toFormValuesFromInputs(inputs));
+  }, [inputs.downPaymentPercent, inputs.interestRate]);
+
+  const handleFormFieldChange = useCallback(
+    (field: "downPaymentPercent" | "interestRate", value: string) => {
+      skipSyncRef.current = true;
+      setFormValues((prev) => ({ ...prev, [field]: value }));
+      setInputs((prev) => ({
+        ...prev,
+        [field]: toNumber(value, DEFAULTS[field]),
+      }));
+    },
+    [setInputs]
+  );
 
   const updateField = useCallback(
     (field: keyof PageInputs, value: string | PaymentFrequency | number) => {
@@ -198,8 +237,8 @@ export default function MortgageSimulatorPage() {
                 label="Down Payment"
                 suffix="%"
                 type="number"
-                value={inputs.downPaymentPercent}
-                onChange={(e) => updateField("downPaymentPercent", e.target.value)}
+                value={formValues.downPaymentPercent}
+                onChange={(e) => handleFormFieldChange("downPaymentPercent", e.target.value)}
                 min={5}
                 max={100}
                 step={1}
@@ -208,8 +247,8 @@ export default function MortgageSimulatorPage() {
                 label="Interest Rate"
                 suffix="%"
                 type="number"
-                value={inputs.interestRate}
-                onChange={(e) => updateField("interestRate", e.target.value)}
+                value={formValues.interestRate}
+                onChange={(e) => handleFormFieldChange("interestRate", e.target.value)}
                 min={0}
                 max={20}
                 step={0.01}

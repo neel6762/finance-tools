@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useCallback, useState } from "react";
+import { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import {
   ComposedChart,
   BarChart,
@@ -168,7 +168,14 @@ export default function GoalPlannerPage() {
   const currencySymbol = currency === "INR" ? "₹" : "$";
   const currencyLocale = currency === "INR" ? "en-IN" : "en-CA";
 
+  /* Sync form on hydration / reset (skip when change originated from user input) */
+  const skipSyncRef = useRef(false);
+
   useEffect(() => {
+    if (skipSyncRef.current) {
+      skipSyncRef.current = false;
+      return;
+    }
     setFormValues(toFormValues(savedInputs));
   }, [savedInputs]);
 
@@ -176,6 +183,7 @@ export default function GoalPlannerPage() {
 
   const handleFieldChange = useCallback(
     (field: keyof GoalPlannerInputs, value: string) => {
+      skipSyncRef.current = true;
       setFormValues((prev) => {
         const next = { ...prev, [field]: value };
         setSavedInputs(toNumericInputs(next));
