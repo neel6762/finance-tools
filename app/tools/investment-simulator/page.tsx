@@ -231,7 +231,7 @@ function InvestmentEventsCard({
                       setNewEvent((prev) => ({ ...prev, name: e.target.value }))
                     }
                     placeholder="e.g., Lump Sum Investment"
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
                 <div>
@@ -246,7 +246,7 @@ function InvestmentEventsCard({
                         type: e.target.value as "expense" | "income",
                       }))
                     }
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   >
                     <option value="income">Deposit</option>
                     <option value="expense">Withdrawal</option>
@@ -267,7 +267,7 @@ function InvestmentEventsCard({
                     }
                     min={currentAge}
                     max={maxAge}
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
               </div>
@@ -293,21 +293,21 @@ function InvestmentEventsCard({
                         }));
                       }}
                       placeholder="10,000"
-                      className="w-full pl-6 pr-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
+                      className="w-full pl-6 pr-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
                     />
                   </div>
                 </div>
                 <div className="col-span-2 flex items-end gap-2">
                   <button
                     onClick={() => setIsAdding(false)}
-                    className="flex-1 px-3 py-1.5 text-[11px] font-medium text-t2 bg-surface border border-border rounded-[5px] hover:bg-hover transition-all duration-[120ms]"
+                    className="flex-1 px-3 py-2.5 md:py-1.5 text-[12px] md:text-[11px] font-medium text-t2 bg-surface border border-border rounded-[5px] hover:bg-hover active:bg-hover transition-all duration-[120ms]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleAdd}
                     disabled={!newEvent.name.trim() || !newEvent.amount}
-                    className="flex-1 px-3 py-1.5 text-[11px] font-medium text-white bg-[var(--color-blue)] rounded-[5px] hover:opacity-90 transition-all duration-[120ms] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-3 py-2.5 md:py-1.5 text-[12px] md:text-[11px] font-medium text-white bg-[var(--color-blue)] rounded-[5px] hover:opacity-90 active:opacity-80 transition-all duration-[120ms] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Add Event
                   </button>
@@ -686,7 +686,7 @@ export default function InvestmentSimulatorPage() {
         <div className="flex flex-col gap-5">
           {/* ─── Input Fields ──────────────────────── */}
           <ToolCard>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
               <Input
                 label="Current Age"
                 suffix="yrs"
@@ -740,7 +740,7 @@ export default function InvestmentSimulatorPage() {
                       min={1}
                       max={100}
                       step={1}
-                      className="w-full pl-[78px] pr-8 py-[7px] rounded-[7px] text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
+                      className="w-full pl-[78px] pr-8 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                     />
                     <span className="absolute right-3 text-[13px] text-t3 pointer-events-none">
                       yrs
@@ -759,7 +759,7 @@ export default function InvestmentSimulatorPage() {
                       min={0}
                       max={100}
                       step={1}
-                      className="w-full pl-[78px] pr-8 py-[7px] rounded-[7px] text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
+                      className="w-full pl-[78px] pr-8 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                     />
                     <span className="absolute right-3 text-[13px] text-t3 pointer-events-none">
                       yrs
@@ -808,7 +808,7 @@ export default function InvestmentSimulatorPage() {
           />
 
           {/* ─── Summary Stats ─────────────────────── */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
             <StatDisplay
               label={`Final Value · Age ${finalAge}`}
               value={fmtCompact(display.finalValue)}
@@ -861,8 +861,8 @@ export default function InvestmentSimulatorPage() {
           {/* ─── Stacked Area Chart ────────────────── */}
           <ToolCard>
             {/* Controls row */}
-            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-              <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-3 gap-2">
+              <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-[12px] font-medium text-t2">
                   Growth Over Time
                 </span>
@@ -923,10 +923,10 @@ export default function InvestmentSimulatorPage() {
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={() => setShowMonteCarlo((s) => !s)}
-                  className={`px-2 py-0.5 rounded-[5px] text-[11px] font-medium border transition-all ${
+                  className={`px-2.5 py-1.5 md:px-2 md:py-0.5 rounded-[5px] text-[11px] font-medium border transition-all ${
                     showMonteCarlo
                       ? "bg-[var(--color-purple-dim)] text-[var(--color-purple)] border-[var(--color-purple)]"
                       : "text-t3 hover:text-t1 hover:bg-hover border-border"
@@ -952,7 +952,7 @@ export default function InvestmentSimulatorPage() {
                 <button
                   onClick={pinScenario}
                   disabled={pinnedScenarios.length >= MAX_SCENARIOS}
-                  className="px-2 py-0.5 rounded-[5px] text-[11px] font-medium text-t3 hover:text-t1 hover:bg-hover border border-border transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="px-2.5 py-1.5 md:px-2 md:py-0.5 rounded-[5px] text-[11px] font-medium text-t3 hover:text-t1 hover:bg-hover border border-border transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   Pin Current
                 </button>

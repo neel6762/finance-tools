@@ -26,8 +26,8 @@ export function Button({
 }: ButtonProps) {
   const base =
     variant === "subtle"
-      ? "inline-flex items-center gap-1.5 px-2 py-1 rounded-[6px] text-[12px] font-medium transition-all duration-[120ms]"
-      : "inline-flex items-center gap-1.5 px-3 py-[5px] rounded-[7px] text-[12px] font-medium transition-all duration-[120ms]";
+      ? "inline-flex items-center gap-1.5 px-2.5 py-2 md:py-1 rounded-[6px] text-[12px] font-medium transition-all duration-[120ms] active:opacity-70"
+      : "inline-flex items-center gap-1.5 px-3.5 py-2 md:py-[5px] rounded-[7px] text-[12px] font-medium transition-all duration-[120ms] active:opacity-70";
 
   return (
     <button

@@ -17,7 +17,7 @@ export function NavItem({ tool }: NavItemProps) {
   return (
     <Link
       href={`/tools/${tool.slug}`}
-      className={`flex items-center gap-2.5 px-2.5 py-[7px] rounded-lg text-[13px] cursor-pointer transition-all duration-[120ms] ${
+      className={`flex items-center gap-2.5 px-2.5 py-2.5 md:py-[7px] rounded-lg text-[13px] cursor-pointer transition-all duration-[120ms] ${
         isActive
           ? "bg-white text-t1 font-medium shadow-[0_1px_4px_rgba(0,0,0,0.08)]"
           : "text-t2 hover:bg-hover hover:text-t1"

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { LayoutShell } from "@/components/shell/LayoutShell";
 import "./globals.css";
@@ -15,9 +15,20 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   title: "Finance Tools",
   description: "Personal finance calculators and simulators",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Finance Tools",
+  },
 };
 
 export default function RootLayout({

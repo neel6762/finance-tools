@@ -5,7 +5,7 @@ interface ToolCardProps {
 
 export function ToolCard({ children, className = "" }: ToolCardProps) {
   return (
-    <div className={`bg-s2 border border-border rounded-[10px] p-4 ${className}`}>
+    <div className={`bg-s2 border border-border rounded-[10px] p-3 md:p-4 ${className}`}>
       {children}
     </div>
   );

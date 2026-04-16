@@ -23,13 +23,13 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       )}
       <Sidebar open={sidebarOpen} />
       <main className="flex min-h-0 flex-col flex-1 overflow-hidden bg-content">
-        <div className="flex md:hidden h-10 flex-shrink-0 items-center px-3 border-b border-border bg-shell">
+        <div className="flex md:hidden h-12 flex-shrink-0 items-center px-3 border-b border-border bg-shell">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-1.5 text-t2 hover:text-t1 rounded"
+            className="w-10 h-10 flex items-center justify-center text-t2 hover:text-t1 rounded-lg active:bg-hover"
             aria-label="Open navigation"
           >
-            <Menu size={18} />
+            <Menu size={20} />
           </button>
         </div>
         {children}

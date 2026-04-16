@@ -88,12 +88,12 @@ function RiskPresetSelector({
   ];
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5 md:gap-1">
       {presets.map(({ label, rate, color }) => (
         <button
           key={label}
           onClick={() => onSelect(rate)}
-          className={`px-2 py-0.5 rounded-[5px] text-[10px] font-medium transition-all border ${
+          className={`px-2.5 py-1.5 md:px-2 md:py-0.5 rounded-[5px] text-[11px] md:text-[10px] font-medium transition-all border active:opacity-70 ${
             Math.abs(currentRate - rate) < 0.5
               ? "border-current"
               : "border-transparent hover:bg-hover"
@@ -241,7 +241,7 @@ export default function GoalPlannerPage() {
         <div className="flex flex-col gap-5">
           {/* ─── Input Fields ──────────────────────── */}
           <ToolCard>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
               <span className="text-[12px] font-medium text-t2">Your Goal</span>
               <RiskPresetSelector
                 currentRate={inputs.expectedReturn}
@@ -326,9 +326,9 @@ export default function GoalPlannerPage() {
             <div className="text-[12px] text-t3 mb-2">
               To reach {fmtCompact(inputs.targetAmount)} by age {inputs.targetAge}, you need to invest
             </div>
-            <div className="text-[36px] font-mono font-semibold text-[var(--color-blue)]">
+            <div className="text-[24px] md:text-[36px] font-mono font-semibold text-[var(--color-blue)]">
               {fmt(result.requiredMonthly)}
-              <span className="text-[16px] text-t2 font-normal ml-2">/month</span>
+              <span className="text-[14px] md:text-[16px] text-t2 font-normal ml-2">/month</span>
             </div>
             <div className="text-[12px] text-t3 mt-2">
               Starting now at age {inputs.currentAge} · {result.yearsToGoal} years to goal

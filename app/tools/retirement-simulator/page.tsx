@@ -287,7 +287,7 @@ function LifeEventsCard({
                       setNewEvent((prev) => ({ ...prev, name: e.target.value }))
                     }
                     placeholder="e.g., Child's Wedding"
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
                 <div>
@@ -302,7 +302,7 @@ function LifeEventsCard({
                         type: e.target.value as "expense" | "income",
                       }))
                     }
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   >
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
@@ -323,7 +323,7 @@ function LifeEventsCard({
                     }
                     min={currentAge}
                     max={maxAge}
-                    className="w-full px-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
+                    className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
               </div>
@@ -349,21 +349,21 @@ function LifeEventsCard({
                         }));
                       }}
                       placeholder="50,000"
-                      className="w-full pl-6 pr-2.5 py-1.5 rounded-[5px] text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
+                      className="w-full pl-6 pr-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 placeholder:text-t3 outline-none focus:border-[var(--color-blue)]"
                     />
                   </div>
                 </div>
                 <div className="col-span-2 flex items-end gap-2">
                   <button
                     onClick={() => setIsAdding(false)}
-                    className="flex-1 px-3 py-1.5 text-[11px] font-medium text-t2 bg-surface border border-border rounded-[5px] hover:bg-hover transition-all duration-[120ms]"
+                    className="flex-1 px-3 py-2.5 md:py-1.5 text-[12px] md:text-[11px] font-medium text-t2 bg-surface border border-border rounded-[5px] hover:bg-hover active:bg-hover transition-all duration-[120ms]"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleAdd}
                     disabled={!newEvent.name.trim() || !newEvent.amount}
-                    className="flex-1 px-3 py-1.5 text-[11px] font-medium text-white bg-[var(--color-blue)] rounded-[5px] hover:opacity-90 transition-all duration-[120ms] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 px-3 py-2.5 md:py-1.5 text-[12px] md:text-[11px] font-medium text-white bg-[var(--color-blue)] rounded-[5px] hover:opacity-90 active:opacity-80 transition-all duration-[120ms] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Add Event
                   </button>
@@ -765,11 +765,11 @@ export default function RetirementSimulatorPage() {
 
           {/* Balance Chart */}
           <ToolCard>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-3 gap-2">
               <span className="text-[12px] font-medium text-t2">
                 Balance Over Time
               </span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3 flex-wrap">
                 {(() => {
                   const growthRate = parseField(formValues.investmentGrowthRate, 8);
                   const inflation = parseField(formValues.inflationRate, 5);
