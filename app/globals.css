@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds */
+  --color-bg-app: #f0ebe4;
+  --color-bg-shell: #faf7f4;
+  --color-bg-content: #ffffff;
+  --color-bg-surface: #f0ebe4;
+  --color-bg-surface-2: #f7f4f0;
+  --color-bg-hover: #e8e1d8;
+
+  /* Borders */
+  --color-border: rgba(0, 0, 0, 0.07);
+  --color-border-strong: rgba(0, 0, 0, 0.12);
+
+  /* Text */
+  --color-text-primary: #1a1714;
+  --color-text-secondary: #6b6259;
+  --color-text-tertiary: #a89f96;
+  --color-text-placeholder: #c4bbb2;
+
+  /* Semantic accents */
+  --color-blue: #2563eb;
+  --color-blue-dim: rgba(37, 99, 235, 0.09);
+  --color-green: #16a34a;
+  --color-green-dim: rgba(22, 163, 74, 0.09);
+  --color-orange: #d97706;
+  --color-orange-dim: rgba(217, 119, 6, 0.09);
+  --color-red: #dc2626;
+  --color-red-dim: rgba(220, 38, 38, 0.08);
+  --color-purple: #7c3aed;
+  --color-purple-dim: rgba(124, 58, 237, 0.08);
+  --color-teal: #0891b2;
+  --color-teal-dim: rgba(8, 145, 178, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* Tool content fade in on route change */
+@keyframes toolIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-enter {
+  animation: toolIn 0.18s ease both;
+}
