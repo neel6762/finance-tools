@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect, useCallback, useState } from "react";
+import { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import {
   ComposedChart,
   BarChart,
@@ -207,7 +207,7 @@ function LifeEventsCard({
   const [isAdding, setIsAdding] = useState(false);
   const [newEvent, setNewEvent] = useState({
     name: "",
-    age: currentAge + 5,
+    age: String(currentAge + 5),
     amount: "",
     type: "expense" as "expense" | "income",
   });
@@ -216,21 +216,23 @@ function LifeEventsCard({
 
   const handleAdd = () => {
     if (!newEvent.name.trim() || !newEvent.amount) return;
-    
+
     const amount = parseFloat(newEvent.amount.replace(/,/g, ""));
     if (isNaN(amount) || amount <= 0) return;
+    const age = parseInt(newEvent.age);
+    if (isNaN(age) || age < currentAge || age > maxAge) return;
 
     onAdd({
       id: crypto.randomUUID(),
       name: newEvent.name.trim(),
-      age: newEvent.age,
+      age,
       amount: amount,
       type: newEvent.type,
     });
 
     setNewEvent({
       name: "",
-      age: currentAge + 5,
+      age: String(currentAge + 5),
       amount: "",
       type: "expense",
     });
@@ -313,16 +315,16 @@ function LifeEventsCard({
                     At Age
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
                     value={newEvent.age}
-                    onChange={(e) =>
-                      setNewEvent((prev) => ({
-                        ...prev,
-                        age: parseInt(e.target.value) || currentAge,
-                      }))
-                    }
-                    min={currentAge}
-                    max={maxAge}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "" || /^\d*$/.test(val)) {
+                        setNewEvent((prev) => ({ ...prev, age: val }));
+                      }
+                    }}
                     className="w-full px-2.5 py-2.5 md:py-1.5 rounded-[5px] text-base md:text-[12px] bg-s2 border border-border text-t1 outline-none focus:border-[var(--color-blue)]"
                   />
                 </div>
@@ -464,12 +466,20 @@ export default function RetirementSimulatorPage() {
   const currencySymbol = currency === "INR" ? "₹" : "$";
   const currencyPrefix = currency === "INR" ? "₹" : "$";
 
+  /* Sync form on hydration / reset (skip when change originated from user input) */
+  const skipSyncRef = useRef(false);
+
   useEffect(() => {
+    if (skipSyncRef.current) {
+      skipSyncRef.current = false;
+      return;
+    }
     setFormValues(savedInputs);
   }, [savedInputs]);
 
   const handleFieldChange = useCallback(
     <K extends keyof FormValues>(field: K, value: FormValues[K]) => {
+      skipSyncRef.current = true;
       setFormValues((prev) => {
         const next = { ...prev, [field]: value };
         setSavedInputs(next);
