@@ -221,7 +221,7 @@ export default function MortgageSimulatorPage() {
                 <select
                   value={inputs.amortizationYears}
                   onChange={(e) => updateField("amortizationYears", parseInt(e.target.value))}
-                  className="w-full px-3 py-[7px] rounded-[7px] text-[13px] font-sans bg-surface border border-border text-t1 outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
+                  className="w-full px-3 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                 >
                   {AMORTIZATION_OPTIONS.map((years) => (
                     <option key={years} value={years}>
@@ -237,7 +237,7 @@ export default function MortgageSimulatorPage() {
                 <select
                   value={inputs.paymentFrequency}
                   onChange={(e) => updateField("paymentFrequency", e.target.value as PaymentFrequency)}
-                  className="w-full px-3 py-[7px] rounded-[7px] text-[13px] font-sans bg-surface border border-border text-t1 outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
+                  className="w-full px-3 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)]"
                 >
                   {PAYMENT_FREQUENCIES.map((freq) => (
                     <option key={freq.value} value={freq.value}>

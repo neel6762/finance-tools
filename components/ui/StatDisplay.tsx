@@ -28,12 +28,12 @@ export function StatDisplay({
   }, [value]);
 
   return (
-    <div className="bg-s2 border border-border rounded-[10px] p-5 flex flex-col gap-1">
-      <span className="text-[10px] font-semibold uppercase tracking-[0.07em] text-t3">
+    <div className="bg-s2 border border-border rounded-[10px] p-3 md:p-4 flex flex-col gap-1">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.07em] text-t3 leading-tight">
         {label}
       </span>
       <span
-        className={`text-[26px] font-semibold font-mono tracking-[-0.04em] transition-all duration-300 ${valueClassName} ${
+        className={`text-[18px] md:text-[20px] lg:text-[22px] font-semibold font-mono tracking-[-0.04em] transition-all duration-300 truncate ${valueClassName} ${
           flash ? "bg-[var(--color-blue-dim)] rounded-[4px] px-1 -mx-1" : ""
         }`}
       >

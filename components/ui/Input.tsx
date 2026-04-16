@@ -54,7 +54,7 @@ export function Input({
         )}
         <input
           id={inputId}
-          className={`w-full px-3 py-[7px] rounded-[7px] text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)] ${
+          className={`w-full px-3 py-2.5 md:py-[7px] rounded-[7px] text-base md:text-[13px] font-sans bg-surface border border-border text-t1 placeholder:text-[var(--color-text-placeholder)] outline-none transition-all duration-[150ms] focus:border-[var(--color-blue)] focus:shadow-[0_0_0_3px_var(--color-blue-dim)] ${
             prefix ? "pl-7" : ""
           } ${suffix ? "pr-8" : ""} ${
             error ? "border-[var(--color-red)] focus:border-[var(--color-red)] focus:shadow-[0_0_0_3px_var(--color-red-dim)]" : ""
