@@ -684,6 +684,7 @@ export default function InvestmentSimulatorPage() {
   return (
     <ToolShell>
       <ToolToolbar title="Investment Simulator" icon="TrendingUp">
+        <span className="text-[11px] text-t3 font-medium mr-1 hidden sm:inline">Built by Neel $</span>
         <CurrencyToggle value={currency} onChange={setCurrency} />
         <Button variant="subtle" onClick={resetDefaults}>
           <RotateCcw size={12} />
