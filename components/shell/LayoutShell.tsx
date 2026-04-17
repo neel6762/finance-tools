@@ -31,6 +31,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
           >
             <Menu size={20} />
           </button>
+          <span className="ml-auto text-[11px] text-t3 font-medium">Built by Neel $</span>
         </div>
         {children}
       </main>

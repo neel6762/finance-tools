@@ -18,6 +18,7 @@ export function Sidebar({ open }: SidebarProps) {
         <span className="text-[14px] font-semibold text-t1 tracking-[-0.02em]">
           Finance Tools
         </span>
+        <span className="ml-auto text-[11px] text-t3 font-medium">Built by Neel $</span>
       </div>
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {TOOLS.map((tool) => (
